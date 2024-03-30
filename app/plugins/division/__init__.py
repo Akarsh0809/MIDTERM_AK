@@ -8,6 +8,6 @@ class DivisionCommand(Command):
             try:
                 return a/b
             except:
-                print ("error! user is trying to do division by zero.")
+                print ("division by zero error ")
         else:
-            print ("there nothing to Divide here.")
+            print ("nothing to Divide")
