@@ -20,8 +20,8 @@ class CalculationHistory:
             num2 (float): The second number used in the operation.
             result (float): The result of the operation.
         """
-        new_entry = pd.DataFrame({'Operation': [operation], 'Number1': [num1], 'Number2': [num2], 'Result': [result]})
-        self.history = pd.concat([self.history, new_entry], ignore_index=True)
+        new_entry = {'Operation': operation, 'Number1': num1, 'Number2': num2, 'Result': result}
+        self.history = self.history.append(new_entry, ignore_index=True)
 
     def display_history(self):
         """
@@ -60,3 +60,4 @@ class CalculationHistory:
             print("Entry deleted.")
         except KeyError:
             print("Invalid index. Entry does not exist.")
+
