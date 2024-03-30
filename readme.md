@@ -80,12 +80,13 @@ except ZeroDivisionError:
     print("Division by zero error")
 ```
 
-This demonstrates the "Look Before You Leap" (LBYL) approach, where potential errors are anticipated and handled explicitly.
-On the other hand, the "Easier to Ask for Forgiveness than Permission" (EAFP) approach is used in various parts of the code, where actions are attempted first, and exceptions are caught and handled if they occur.
+This is an example of the "Look Before You Leap" (LBYL) methodology, in which any mistakes are recognized and addressed in advance. Conversely, the "Easier to Ask for Forgiveness than Permission" (EAFP) technique is employed in different sections of the code, prioritizing tasks and handling exceptions when they arise.
 
 
 **4. Working:**
-a. first set up the github repository and then link it to your wsl-2 IDE.
+a. Before linking the github repository to your WSL-2 IDE, set it up.
+
+
     
 ```php
 git remote add origin <paste your github repository ssh link>
@@ -96,7 +97,8 @@ ssh-keygen -t rsa -b 2048  (this command will create a ssh key)
 vi ~/.ssh/id_rsa.pub (This will open the file containing th essh key. Paste this key in the github profile ssh key section)
 ```
  
-b. Setup the python environment
+b. Configure the environment for Python.
+
 
 ```python
 sudo apt update -y
@@ -113,6 +115,7 @@ pytest --pylint --cov (Runs tests, pylint, and coverage to check if you have all
 python3 main.py 
 ```
 
-c. The above command will start the app and asks you to enter the prompt menu to display the menu. From there you can select the option you want to interact with and after that command operation is done it will again as you to enter menu again so that you can choose the option to interact with. This goes on till you select exit from the menu.
+c. The aforementioned command launches the application and prompts you to enter the menu in order to see it. You can then choose the option you wish to interact with, and once the command operation is complete, you will be prompted to enter the menu once more to select the option to interact with. This continues until you choose to quit the menu.
+
 
 
