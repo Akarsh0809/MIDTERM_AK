@@ -46,9 +46,10 @@ class AppFacade:
     @staticmethod
     def perform_data_manipulation(data):
        #Perform intricate data manipulations using Pandas here.
-       #This may include tasks such as filtering, transforming, aggregating, and more.
-    ```
-**2. Environmental usage:**  
+```     #This may include tasks such as filtering, transforming, aggregating, and more.
+
+    
+**2. Environmental usage:** 
 The load_dotenv function from the dotenv library, these variables are seamlessly integrated. Within the App class, the getEnvironmentVariable method facilitates the retrieval of the ENVIRONMENT variable. This systematic approach empowers effortless configuration adjustments, facilitating the adaptation of application behavior to varying environments.
 
 *Example snippet:*
