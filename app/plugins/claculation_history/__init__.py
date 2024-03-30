@@ -8,7 +8,7 @@ class CalculationHistory:
         """
         Initialize the calculation history as an empty DataFrame.
         """
-        self.history = pd.DataFrame()
+        self.history = pd.DataFrame(columns=['Operation', 'Number1', 'Number2', 'Result'])
 
     def add_entry(self, operation, num1, num2, result):
         """
@@ -21,10 +21,7 @@ class CalculationHistory:
             result (float): The result of the operation.
         """
         new_entry = pd.DataFrame({'Operation': [operation], 'Number1': [num1], 'Number2': [num2], 'Result': [result]})
-        if self.history.empty:
-            self.history = new_entry
-        else:
-            self.history = pd.concat([self.history, new_entry], ignore_index=True)
+        self.history = pd.concat([self.history, new_entry], ignore_index=True)
 
     def display_history(self):
         """
@@ -48,7 +45,7 @@ class CalculationHistory:
         """
         Clear the calculation history.
         """
-        self.history = pd.DataFrame(columns=['Operation', 'Operand1', 'Operand2', 'Result'])
+        self.history = pd.DataFrame(columns=['Operation', 'Number1', 'Number2', 'Result'])
         print("History cleared.")
 
     def delete_entry(self, index):
