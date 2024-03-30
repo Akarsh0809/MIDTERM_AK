@@ -60,4 +60,3 @@ class CalculationHistory:
             print("Entry deleted.")
         except KeyError:
             print("Invalid index. Entry does not exist.")
-
