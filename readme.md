@@ -53,13 +53,14 @@ class AppFacade:
 The load_dotenv function from the dotenv library, these variables are seamlessly integrated. Within the App class, the getEnvironmentVariable method facilitates the retrieval of the ENVIRONMENT variable. This systematic approach empowers effortless configuration adjustments, facilitating the adaptation of application behavior to varying environments.
 
 *Example snippet:*
+
 ```class MyClass:
     def __init__(self, settings):
         self.settings = settings
 
     def getEnvironmentVariable(self, envvar: str = 'ENVIRONMENT'):
-        return self.settings.get(envvar)
-```
+     ```   return self.settings.get(envvar)
+
 
 **3. Logging:**
 The logging module, log messages are systematically written to a designated file named "app.log" with a predefined format. To maintain organizational clarity and segregate logs effectively, loggers are instantiated using getLogger(__name__).
