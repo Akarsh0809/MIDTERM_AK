@@ -57,3 +57,8 @@ def getEnvironmentVariable(self, envvar: str = 'ENVIRONMENT'):
    return self.settings[envvar]
 ```
 
+Environment Variables Usage:
+Environment variables are used to load application settings dynamically and manage the environment. They are loaded using the load_dotenv function from the dotenv library. The environment variable ENVIRONMENT is accessed using the getEnvironmentVariable method of the App class. This approach allows for easy configuration and adaptation of the application behavior based on the environment.
+
+You can find the code illustrating the usage of environment variables here in the App class.
+
