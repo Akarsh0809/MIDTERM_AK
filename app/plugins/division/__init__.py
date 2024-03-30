@@ -1,30 +1,29 @@
 from app.commands import Command
 
 class DivisionCommand(Command):
+    """
+    Command class for performing division operation.
+    """
+
     def execute(self, args):
         """
         Execute the division operation.
 
         Args:
-            args (list): A list containing two numeric arguments for division.
+            args (list): List of arguments containing numbers to divide.
 
         Returns:
-            float: The result of the division operation.
-
-        Raises:
-            ZeroDivisionError: If the second argument is zero.
+            float: Result of the division operation.
         """
-        if args:
-            # Convert arguments to floats
-            a = float(args[0])
-            b = float(args[1])
+        if args and len(args) >= 2:
             try:
-                # Perform division
-                result = a / b
-                return result
-            except ZeroDivisionError:
-                # Handle division by zero error
-                print("Division by zero error")
+                numerator = float(args[0])
+                denominator = float(args[1])
+                if denominator != 0:
+                    return numerator / denominator
+                else:
+                    print("Error: Division by zero")
+            except ValueError:
+                print("Error: Invalid input. Please provide valid numbers.")
         else:
-            # No arguments provided
-            print("Nothing to divide")
+            print("Error: Insufficient arguments. Provide two numbers to divide.")
