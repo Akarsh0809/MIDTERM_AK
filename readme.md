@@ -4,6 +4,7 @@
 
 *a. Command Pattern:* Command Pattern: Utilized in the Command and CommandHandler classes to decouple command execution from command objects. This promotes extensibility and maintainability by encapsulating requests as objects, enabling parameterization of clients with different requests and queuing of requests. "https://github.com/Akarsh0809/MIDTERM_AK/blob/main/app/commands/__init__.py"
 '''
+
 *b. Factory Pattern:* Implemented in the AppFactory class to dynamically create command objects based on plugin modules. This pattern encapsulates the object creation logic, allowing for flexibility and scalability in adding new commands without modifying existing code.
 import pkgutil
 *Code snipped:*
