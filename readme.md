@@ -4,8 +4,7 @@
 
 *a. Command Pattern:* Command Pattern: Utilized in the Command and CommandHandler classes to decouple command execution from command objects. This promotes extensibility and maintainability by encapsulating requests as objects, enabling parameterization of clients with different requests and queuing of requests. "https://github.com/Akarsh0809/MIDTERM_AK/blob/main/app/commands/__init__.py"
 '''
-*b. Factory Pattern:* Implemented in the AppFactory class to dynamically create command objects based on plugin modules. This pattern encapsulates the object creation logic, allowing for flexibility and scalability in adding new commands without modifying existing code. You can find the implementation here.
-Code snipped:
+*b. Factory Pattern:* Implemented in the AppFactory class to dynamically create command objects based on plugin modules. This pattern encapsulates the object creation logic, allowing for flexibility and scalability in adding new commands without modifying existing code.
 import pkgutil
 import importlib
 class AppFactory:
@@ -29,13 +28,6 @@ class AppFactory:
                                 commands[plugin_name] = item
                         except TypeError:
                             continue
-        return commands
+        return commands ```
 
-*c. Facade Pattern:* Applied in the AppFacade class to provide a simplified interface (perform_data_manipulation()) to complex operations (Pandas data manipulation).
-Code snipped:
-class AppFacade:
-    @staticmethod
-    def perform_data_manipulation(data):
-        # Perform complex Pandas data manipulations here
-        # This could involve operations like filtering, transformation, aggregation, etc.
-        pass
+*c) Facade Pattern:* Applied in the AppFacade class to provide a simplified interface for complex subsystems (data manipulation). This pattern hides the complexities of the subsystem and provides a single entry point for interacting with it. You can find the implementation within the AppFacade class here.
