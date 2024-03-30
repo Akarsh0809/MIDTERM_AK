@@ -49,7 +49,9 @@ class AppFacade:
     ```
 
 **2. Environment Variables Usage:**
-Environment variables are used for settings such as defining the environment (ENVIRONMENT), which defaults to 'TESTING'. These variables are loaded from a .env file using python-dotenv.
+Environment variables are used to load application settings dynamically and manage the environment. They are loaded using the load_dotenv function from the dotenv library. The environment variable ENVIRONMENT is accessed using the getEnvironmentVariable method of the App class. This approach allows for easy configuration and adaptation of the application behavior based on the environment.
+
+You can find the code illustrating the usage of environment variables here in the App class.
 
 *Example snippet:*
 ```python
@@ -57,8 +59,60 @@ def getEnvironmentVariable(self, envvar: str = 'ENVIRONMENT'):
    return self.settings[envvar]
 ```
 
-Environment Variables Usage:
-Environment variables are used to load application settings dynamically and manage the environment. They are loaded using the load_dotenv function from the dotenv library. The environment variable ENVIRONMENT is accessed using the getEnvironmentVariable method of the App class. This approach allows for easy configuration and adaptation of the application behavior based on the environment.
+**3. Logging:**
+Logging is extensively used throughout the application to provide insights into its behavior and to track various events. The logging module is configured to write log messages to a file (app.log) with a specified format. Loggers are created using getLogger(__name__) to ensure proper organization and separation of logs.
 
-You can find the code illustrating the usage of environment variables here in the App class.
+You can find the logging configuration and usage in the App class here, as well as in other modules where loggers are utilized.
+
+*Example snippet:*
+```python
+logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+Try/Except and Exceptions:
+Exceptions are used for error handling in various parts of the code. For example, in the DivisionCommand class, a try/except block catches a ZeroDivisionError if the divisor is zero, and an error message is printed.
+
+*Example snippet:*
+```python
+python
+Copy code
+try:
+    return a / b
+except ZeroDivisionError:
+    print("Division by zero error")
+```
+
+This demonstrates the "Look Before You Leap" (LBYL) approach, where potential errors are anticipated and handled explicitly.
+On the other hand, the "Easier to Ask for Forgiveness than Permission" (EAFP) approach is used in various parts of the code, where actions are attempted first, and exceptions are caught and handled if they occur.
+
+
+**4. Working:**
+a. first set up the github repository and then link it to your wsl-2 IDE.
+    
+```php
+git remote add origin <paste your github repository ssh link>
+git add .
+git commit -m "add your commit statement"
+git push orign master 
+ssh-keygen -t rsa -b 2048  (this command will create a ssh key)
+vi ~/.ssh/id_rsa.pub (This will open the file containing th essh key. Paste this key in the github profile ssh key section)
+```
+ 
+b. Setup the python environment
+
+```python
+sudo apt update -y
+sudo apt install python3-pip
+pip3 --version
+(the above commands will update the wsl-2 and installs the python-3 packages)
+pip3 install virtualenv (This command will install virtual environment)
+virtualenv venv (This command will create a virtual environment venu)
+source ./venv/bin/activate (This command will activate the virtual environment.)
+pip3 install -r requirments.txt (This command will install all the required packages)
+pytest (Runs the tests)
+pytest --pylint  (Runs tests with pylint static code analysis)
+pytest --pylint --cov (Runs tests, pylint, and coverage to check if you have all your code tested.)
+python3 main.py 
+```
+
+c. The above command will start the app and asks you to enter the prompt menu to display the menu. From there you can select the option you want to interact with and after that command operation is done it will again as you to enter menu again so that you can choose the option to interact with. This goes on till you select exit from the menu.
+
 
