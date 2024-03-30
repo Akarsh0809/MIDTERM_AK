@@ -2,11 +2,13 @@
 
 **1. Design Patterns Used:**
 
-*a. Command Pattern:* Command Pattern: Utilized in the Command and CommandHandler classes to decouple command execution from command objects. This promotes extensibility and maintainability by encapsulating requests as objects, enabling parameterization of clients with different requests and queuing of requests. "https://github.com/Akarsh0809/MIDTERM_AK/blob/main/app/commands/__init__.py"
+*a. Command Pattern:* Command Pattern: Utilized in the Command and CommandHandler classes to decouple command execution from command objects. This promotes extensibility and maintainability by encapsulating requests as objects, enabling parameterization of clients with different requests and queuing of requests. 
+
+link: "https://github.com/Akarsh0809/MIDTERM_AK/blob/main/app/commands/__init__.py"
 '''
 
 *b. Factory Pattern:* Implemented in the AppFactory class to dynamically create command objects based on plugin modules. This pattern encapsulates the object creation logic, allowing for flexibility and scalability in adding new commands without modifying existing code.
-import pkgutil
+
 *Code snipped:*
 ```python
 import pkgutil
@@ -43,50 +45,42 @@ class AppFactory:
 class AppFacade:
     @staticmethod
     def perform_data_manipulation(data):
-        # Perform complex Pandas data manipulations here
-        # This could involve operations like filtering, transformation, aggregation, etc.
-        pass
+       #Perform intricate data manipulations using Pandas here.
+       #This may include tasks such as filtering, transforming, aggregating, and more.
     ```
-
-**2. Environment Variables Usage:**
-Environment variables are used to load application settings dynamically and manage the environment. They are loaded using the load_dotenv function from the dotenv library. The environment variable ENVIRONMENT is accessed using the getEnvironmentVariable method of the App class. This approach allows for easy configuration and adaptation of the application behavior based on the environment.
-
-You can find the code illustrating the usage of environment variables here in the App class.
+**2. Environmental usage:**  
+The load_dotenv function from the dotenv library, these variables are seamlessly integrated. Within the App class, the getEnvironmentVariable method facilitates the retrieval of the ENVIRONMENT variable. This systematic approach empowers effortless configuration adjustments, facilitating the adaptation of application behavior to varying environments.
 
 *Example snippet:*
-```python
-def getEnvironmentVariable(self, envvar: str = 'ENVIRONMENT'):
-   return self.settings[envvar]
+```class MyClass:
+    def __init__(self, settings):
+        self.settings = settings
+
+    def getEnvironmentVariable(self, envvar: str = 'ENVIRONMENT'):
+        return self.settings.get(envvar)
 ```
 
 **3. Logging:**
-Logging is extensively used throughout the application to provide insights into its behavior and to track various events. The logging module is configured to write log messages to a file (app.log) with a specified format. Loggers are created using getLogger(__name__) to ensure proper organization and separation of logs.
-
+The logging module, log messages are systematically written to a designated file named "app.log" with a predefined format. To maintain organizational clarity and segregate logs effectively, loggers are instantiated using getLogger(__name__).
 You can find the logging configuration and usage in the App class here, as well as in other modules where loggers are utilized.
 
 *Example snippet:*
 ```python
 logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 Try/Except and Exceptions:
-Exceptions are used for error handling in various parts of the code. For example, in the DivisionCommand class, a try/except block catches a ZeroDivisionError if the divisor is zero, and an error message is printed.
 
-*Example snippet:*
-```python
-python
-Copy code
-try:
-    return a / b
-except ZeroDivisionError:
-    print("Division by zero error")
+Exceptions are used for error handling in various parts of the code.  For instance, within the FileNotFoundError block in the FileHandling class, file-related errors are handled. When attempting to access a file that doesn't exist, an appropriate error message is displayed to the user.
+```try:
+    with open(filename, 'r') as file:
+        # Perform file operations
+except FileNotFoundError:
+    print("File not found error: The specified file does not exist.")
 ```
 
-This is an example of the "Look Before You Leap" (LBYL) methodology, in which any mistakes are recognized and addressed in advance. Conversely, the "Easier to Ask for Forgiveness than Permission" (EAFP) technique is employed in different sections of the code, prioritizing tasks and handling exceptions when they arise.
+This situation follows the "Look Before You Leap" (LBYL) approach, where potential errors are anticipated and fixed beforehand. On the other hand, the code utilizes the "Easier to Ask for Forgiveness than Permission" (EAFP) method in certain areas, focusing on task completion and managing errors as they occur.
 
-
-**4. Working:**
-a. Before linking the github repository to your WSL-2 IDE, set it up.
-
-
+**4. Procedure:**
+a. Prepare the GitHub repository before connecting it to your WSL-2 IDE.
     
 ```php
 git remote add origin <paste your github repository ssh link>
@@ -98,7 +92,6 @@ vi ~/.ssh/id_rsa.pub (This will open the file containing th essh key. Paste this
 ```
  
 b. Configure the environment for Python.
-
 
 ```python
 sudo apt update -y
@@ -114,8 +107,8 @@ pytest --pylint  (Runs tests with pylint static code analysis)
 pytest --pylint --cov (Runs tests, pylint, and coverage to check if you have all your code tested.)
 python3 main.py 
 ```
+c.The given command starts the application and guides you to the menu for interaction. From there, you can select your desired option. After completing the chosen operation, you'll be prompted to re-enter the menu for further interaction. This cycle repeats until you opt to exit the menu.
 
-c. The aforementioned command launches the application and prompts you to enter the menu in order to see it. You can then choose the option you wish to interact with, and once the command operation is complete, you will be prompted to enter the menu once more to select the option to interact with. This continues until you choose to quit the menu.
 
 **5.a video describing the calculator app's functionality**
 https://drive.google.com/file/d/11jf8NeGATLZujoOkuJvLC4yfB8EYGRT1/view?usp=sharing
