@@ -118,6 +118,7 @@ python3 main.py
 c. The aforementioned command launches the application and prompts you to enter the menu in order to see it. You can then choose the option you wish to interact with, and once the command operation is complete, you will be prompted to enter the menu once more to select the option to interact with. This continues until you choose to quit the menu.
 
 **5.a video describing the calculator app's functionality**
+https://drive.google.com/file/d/11jf8NeGATLZujoOkuJvLC4yfB8EYGRT1/view?usp=sharing
 
 
 
