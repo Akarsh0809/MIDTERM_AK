@@ -46,7 +46,8 @@ class AppFacade:
     @staticmethod
     def perform_data_manipulation(data):
        #Perform intricate data manipulations using Pandas here.
-```     #This may include tasks such as filtering, transforming, aggregating, and more.
+     #This may include tasks such as filtering, transforming, aggregating, and more.
+```
 
     
 **2. Environmental usage:** 
@@ -59,8 +60,8 @@ The load_dotenv function from the dotenv library, these variables are seamlessly
         self.settings = settings
 
     def getEnvironmentVariable(self, envvar: str = 'ENVIRONMENT'):
-     ```   return self.settings.get(envvar)
-
+       return self.settings.get(envvar)
+```
 
 **3. Logging:**
 The logging module, log messages are systematically written to a designated file named "app.log" with a predefined format. To maintain organizational clarity and segregate logs effectively, loggers are instantiated using getLogger(__name__).
