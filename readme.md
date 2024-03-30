@@ -36,3 +36,24 @@ class AppFactory:
 ```
 
 *c) Facade Pattern:* Applied in the AppFacade class to provide a simplified interface for complex subsystems (data manipulation). This pattern hides the complexities of the subsystem and provides a single entry point for interacting with it. You can find the implementation within the AppFacade class here.
+
+*Code snipped:*
+
+```python
+class AppFacade:
+    @staticmethod
+    def perform_data_manipulation(data):
+        # Perform complex Pandas data manipulations here
+        # This could involve operations like filtering, transformation, aggregation, etc.
+        pass
+    ```
+
+**2. Environment Variables Usage:**
+Environment variables are used for settings such as defining the environment (ENVIRONMENT), which defaults to 'TESTING'. These variables are loaded from a .env file using python-dotenv.
+
+*Example snippet:*
+```python
+def getEnvironmentVariable(self, envvar: str = 'ENVIRONMENT'):
+   return self.settings[envvar]
+```
+
