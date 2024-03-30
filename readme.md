@@ -6,6 +6,9 @@
 '''
 *b. Factory Pattern:* Implemented in the AppFactory class to dynamically create command objects based on plugin modules. This pattern encapsulates the object creation logic, allowing for flexibility and scalability in adding new commands without modifying existing code.
 import pkgutil
+*Code snipped:*
+```python
+import pkgutil
 import importlib
 class AppFactory:
     @staticmethod
@@ -29,5 +32,6 @@ class AppFactory:
                         except TypeError:
                             continue
         return commands ```
+```
 
 *c) Facade Pattern:* Applied in the AppFacade class to provide a simplified interface for complex subsystems (data manipulation). This pattern hides the complexities of the subsystem and provides a single entry point for interacting with it. You can find the implementation within the AppFacade class here.
