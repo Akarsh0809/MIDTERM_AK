@@ -1,114 +1,97 @@
 import os
-import pkgutil
 import importlib
 import sys
 import logging
 from abc import ABC, abstractmethod
 from dotenv import load_dotenv
-from app.plugins.menu import MenuCommand
-import warnings
-from app.plugins.claculation_history import claculation_history
 
-warnings.filterwarnings("ignore", category=FutureWarning)
-warnings.resetwarnings()
+# Custom exception handling (optional)
+class AppError(Exception):
+    pass
 
-# Ensure the 'logs' directory exists
-log_dir = os.path.join(os.getcwd(), 'logs')
-os.makedirs(log_dir, exist_ok=True)
-
-# Configure logging
-log_file = os.path.join(log_dir, 'app.log')
-logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
-
-class Command(ABC):
+# Data manipulation logic (abstract)
+class DataProcessor(ABC):
     @abstractmethod
-    def execute(self):
+    def process(self, data):
         pass
 
-class CommandHandler:
-    def __init__(self):
-        self.commands = {}
-
-    def register_command(self, command_name: str, command_class):
-        self.commands[command_name] = command_class
-
-    def create_command(self, command_name: str):
-        if command_name in self.commands:
-            return self.commands[command_name]()
-        else:
-            logger.error(f"No such command: {command_name}")
-            return None
-
-    def execute_command(self, command_name: str):
-        command = self.create_command(command_name)
-        if command:
-            command.execute()
-
-class AppFacade:
-    @staticmethod
-    def perform_data_manipulation(data):
-        # Perform complex Pandas data manipulations here
-        # This could involve operations like filtering, transformation, aggregation, etc.
-        pass
-
-class AppFactory:
-    @staticmethod
-    def create_command_objects():
-        commands = {}
-        plugins_packages = [
-            'app.plugins.addition',
-            'app.plugins.subtraction',
-            'app.plugins.multiplication',
-            'app.plugins.division'
-        ]
-        for plugins_package in plugins_packages:
-            for _, plugin_name, is_pkg in pkgutil.iter_modules([plugins_package.replace('.', '/')]):
-                if is_pkg:  
-                    plugin_module = importlib.import_module(f'{plugins_package}.{plugin_name}')
-                    for item_name in dir(plugin_module):
-                        item = getattr(plugin_module, item_name)
-                        try:
-                            if issubclass(item, Command):  
-                                commands[plugin_name] = item
-                        except TypeError:
-                            continue
-        return commands
-
-class App:
+# Application configuration (facade)
+class AppConfig:
     def __init__(self):
         load_dotenv()
         self.settings = {}
         for key, value in os.environ.items():
             self.settings[key] = value
         self.settings.setdefault('ENVIRONMENT', 'TESTING')
-        self.command_handler = CommandHandler()
-        self.history_manager = claculation_history()
 
-    def getEnvironmentVariable(self, envvar: str = 'ENVIRONMENT'):
-        return self.settings[envvar]
-    
+    def get_environment(self):
+        return self.settings['ENVIRONMENT']
+
+# Plugin discovery and loading
+class PluginManager:
+    def __init__(self, plugin_paths):
+        self.plugin_paths = plugin_paths
+        self.commands = {}
+
     def load_plugins(self):
-        commands = AppFactory.create_command_objects()
-        for command_name, command_class in commands.items():
-            self.command_handler.register_command(command_name, command_class)
+        for path in self.plugin_paths:
+            self.discover_plugins(path)
+
+    def discover_plugins(self, path):
+        for _, module_name, _ in importlib.walk(path):
+            module = importlib.import_module(f"{path}.{module_name}")
+            for item_name in dir(module):
+                item = getattr(module, item_name)
+                if isinstance(item, type) and issubclass(item, DataProcessor):
+                    self.commands[module_name] = item
+
+# Command execution handler
+class CommandExecutor:
+    def __init__(self, commands):
+        self.commands = commands
+
+    def execute(self, command_name, data=None):
+        if command_name in self.commands:
+            command = self.commands[command_name]()
+            if data:
+                command.process(data)
+            else:
+                command.process()  # Handle commands without data arguments
+        else:
+            logging.error(f"Command not found: {command_name}")
+
+# Application core
+class App:
+    def __init__(self, config, plugin_paths):
+        self.config = config
+        self.plugin_manager = PluginManager(plugin_paths)
+        self.command_executor = None
+        self.history_manager = None  # Placeholder for history functionality (optional)
 
     def start(self):
-        self.load_plugins()
-        logger.info("Application started.")
-        print("Type 'menu to get menu.")
+        self.plugin_manager.load_plugins()
+        self.command_executor = CommandExecutor(self.plugin_manager.commands)
+        logging.info("Application started.")
+        print("Type 'menu' to get menu.")
         while True:
             user_input = input(">>> ").strip()
             if user_input.lower() == 'menu':
-                logger.info("Menu command executed.")
-                MenuCommand(self.history_manager).execute([])  # Pass history_manager to MenuCommand
+                # (Optional) Implement menu functionality here
+                logging.info("Menu command executed.")
             else:
-                self.command_handler.execute_command(user_input)
+                self.command_executor.execute(user_input)
 
+# Main execution block
 if __name__ == "__main__":
-    app = App()
+    config = AppConfig()
+    plugin_paths = [  # Replace with actual plugin paths
+        'app.plugins.addition',
+        'app.plugins.subtraction',
+        # ... other plugin paths
+    ]
+    app = App(config, plugin_paths)
     try:
         app.start()
     except Exception as e:
-        logger.error(f"An error occurred: {str(e)}")
+        logging.error(f"An error occurred: {str(e)}")
         sys.exit(1)
